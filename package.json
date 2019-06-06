@@ -1,0 +1,16 @@
+{
+  "name": "sls-unit-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "handler.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "aws-sdk": "^2.469.0",
+    "jest": "^24.8.0"
+  }
+}

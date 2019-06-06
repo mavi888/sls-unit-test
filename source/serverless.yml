@@ -1,0 +1,56 @@
+service: sls-unit-test 
+
+custom:
+  GREETER_DYNAMODB_TABLE: sls-unit-test-names-table
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  environment: ${self:custom}
+
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "dynamodb:GetItem"
+        - "dynamodb:PutItem"
+      Resource:
+        Fn::GetAtt:
+          - GreeterTable
+          - Arn
+
+functions:
+  hello:
+    handler: handler.hello
+    description: "Just simple hello world"
+    events:
+      - http:
+          method: get
+          path: hello
+  moi:
+    handler: handler.moi
+    description: "Saves the name to a database and says hi"
+    events:
+      - http:
+          method: get
+          path: moi
+  wasGreeted:
+    handler: handler.wasGreeted
+    description: "Returns 200 if the name was greeted already- 404 if not"
+    events:
+      - http:
+          method: get
+          path: greet
+
+resources:
+  Resources:
+    GreeterTable:
+      Type: "AWS::DynamoDB::Table"
+      Properties:
+        AttributeDefinitions:
+        - AttributeName: "name"
+          AttributeType: "S"
+        KeySchema:
+        - AttributeName: "name"
+          KeyType: "HASH"
+        BillingMode: PAY_PER_REQUEST
+        TableName: ${self:custom.GREETER_DYNAMODB_TABLE}
