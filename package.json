@@ -4,7 +4,7 @@
   "description": "",
   "main": "handler.js",
   "scripts": {
-    "test": "jest unit-tests/*",
+    "test": "jest tests/*",
     "test-integration": "jest integration-tests/*  --env=node"
   },
   "keywords": [],
