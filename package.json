@@ -4,13 +4,16 @@
   "description": "",
   "main": "handler.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest unit-tests/*",
+    "test-integration": "jest integration-tests/*  --env=node"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "aws-sdk": "^2.469.0",
-    "jest": "^24.8.0"
+    "axios": "^0.19.0",
+    "jest": "^24.8.0",
+    "lodash": "^4.17.11"
   }
 }
