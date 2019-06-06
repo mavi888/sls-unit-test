@@ -1,0 +1,28 @@
+image: node:8.10
+
+stages:
+  - test
+  - deploy
+  - integration
+
+before_script:
+    - npm install -g serverless
+    - bash install.sh
+
+test before deploy:
+  stage: test
+  script:
+    - npm test
+  environment: dev
+
+deploy after test:
+  stage: deploy
+  script:
+    - bash deploy.sh dev us-east-1
+  environment: dev
+
+integration tests after deploy:
+  stage: integration
+  script:
+    - npm run test-integration
+  environment: dev
